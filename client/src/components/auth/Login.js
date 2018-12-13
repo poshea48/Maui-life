@@ -31,6 +31,7 @@ class Login extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+
     if (nextProps.errors) {
       return { errors: nextProps.errors }
     }
@@ -41,7 +42,6 @@ class Login extends Component {
     if (prevProps.errors !== this.props.errors) {
       this.setState({errors: this.props.errors })
     }
-
     if (this.props.auth.isAuthenticated) {
       this.setState({ isAuthenticated: this.props.auth.isAuthenticated })
       this.props.history.push('/dashboard')
@@ -90,8 +90,8 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth:      PropTypes.object.isRequred,
-  errors:    PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({

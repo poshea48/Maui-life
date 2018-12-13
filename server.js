@@ -5,6 +5,7 @@ const passport = require('passport');
 
 // route files
 const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 const todos = require('./routes/api/todos');
 const pictures = require('./routes/api/pictures');
@@ -34,11 +35,12 @@ require('./config/passport')(passport);
 
 // Use Routes
 app.use('/api/users', users);
-app.use('/api/posts', posts);
-app.use('/api/todos', todos);
-app.use('/api/pictures', pictures);
-app.use('/api/bottles', bottles);
-app.use('/api/locations', locations)
+app.use('/api/profile', profile);
+// app.use('/api/posts', posts);
+// app.use('/api/todos', todos);
+// app.use('/api/pictures', pictures);
+// app.use('/api/bottles', bottles);
+// app.use('/api/locations', locations)
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
