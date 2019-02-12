@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions'
+import { clearErrors } from '../../actions/clearErrorAction';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Register extends Component {
@@ -29,7 +30,7 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/home');
     }
   }
 
@@ -47,7 +48,13 @@ class Register extends Component {
     }
 
     if (prevProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard')
+      this.props.history.push('/home')
+    }
+  }
+
+  componentWillUnmount() {
+    if (Object.keys(this.props.errors).length > 0) {
+      this.props.clearErrors()
     }
   }
 
@@ -109,6 +116,7 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors:  PropTypes.object.isRequired
 }
@@ -120,4 +128,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {registerUser})(Register);
+export default connect(mapStateToProps, {registerUser, clearErrors})(Register);

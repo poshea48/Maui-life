@@ -25,13 +25,12 @@ export const loginUser = userData => dispatch => {
     .then(res => {
 
       const { token } = res.data;
-      localStorage.setItem('jwtToken', token)
+      localStorage.setItem('jwtTokenMaui', token)
       setAuthToken(token);
       const decoded = jwt_decode(token)
       dispatch(setCurrentUser(decoded))
     })
     .catch(err => {
-      console.log(err)
       return dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -40,7 +39,7 @@ export const loginUser = userData => dispatch => {
 }
 
 export const logoutUser = () => dispatch => {
-  localStorage.removeItem('jwtToken')
+  localStorage.removeItem('jwtTokenMaui')
   setAuthToken(false) // removes token from request header
   dispatch(setCurrentUser({}))
 }

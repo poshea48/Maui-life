@@ -41,3 +41,30 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.flex-item {
+  width: 10em;
+  margin: 5px;
+}
+
+.hike-item-img {
+  background:linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url('/img/map_snippet.jpg');
+
+}
+
+.comment-input {
+  width: 100%;
+  border: 2px solid #17a2b8;
+}
+
+.action-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.thumb {
+  width: 100px;
+}
+.thumb:hover {
+
+  background-color: #f7f5f2;
+}

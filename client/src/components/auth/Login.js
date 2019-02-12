@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
+import { clearErrors } from '../../actions/clearErrorAction';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
@@ -26,7 +27,7 @@ class Login extends Component {
 
   componentDidMount = () => {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/home');
     }
   }
 
@@ -44,7 +45,13 @@ class Login extends Component {
     }
     if (this.props.auth.isAuthenticated) {
       this.setState({ isAuthenticated: this.props.auth.isAuthenticated })
-      this.props.history.push('/dashboard')
+      this.props.history.push('/home')
+    }
+  }
+
+  componentWillUnmount() {
+    if (Object.keys(this.props.errors).length > 0) {
+      this.props.clearErrors()
     }
   }
 
@@ -90,6 +97,7 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
@@ -99,4 +107,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, clearErrors })(Login);

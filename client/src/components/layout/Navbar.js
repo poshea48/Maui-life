@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions'
+import { clearTodos } from '../../actions/todoActions'
 
 class Navbar extends Component {
   onLogoutClick = e => {
     e.preventDefault();
     this.props.clearCurrentProfile();
+    this.props.clearTodos();
     this.props.logoutUser();
   }
 
@@ -17,17 +19,12 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/profile/todos">Todo List</Link>
+          <Link className="nav-link" to="/home">Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/profile/locations">Areas Visited</Link>
+          <Link className="nav-link" to={`/profile/${user.id}`}>Profile</Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/profile/pictures">Pictures Taken</Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/profile/bottles">Bottles Drank</Link>
-        </li>
+
         <li className="nav-item">
           <a
             href='#'
@@ -89,6 +86,7 @@ class Navbar extends Component {
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   clearCurrentProfile: PropTypes.func.isRequired,
+  clearTodos: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
 
@@ -98,4 +96,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile, clearTodos })(Navbar);

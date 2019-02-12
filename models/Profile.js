@@ -14,20 +14,10 @@ const ProfileSchema = new Schema({
   location: {
     type: String
   },
-  status: {
-    type: String,
-    required: true
-  },
-  skills: {
-    type: [String],
-  },
   bio: {
     type: String
   },
   social: {
-    youtube: {
-      type: String
-    },
     twitter: {
       type: String
     },

@@ -17,7 +17,7 @@ const validateCommentInput = require('../../validation/comment');
 // @access Public
 router.get('/test', (req, res) => res.json({msg: "Posts Works"}))
 
-// @route GET api/posts
+// @route GET api/posts/
 // @desc  get all post
 // @access Public
 router.get('/', (req, res) => {
@@ -25,11 +25,12 @@ router.get('/', (req, res) => {
   Post.find()
   .sort({date: -1})
   .then(posts => {
-    console.log("made it into first then")
     if(!posts) {
       errors.posts = "No posts found"
       return res.status(404).json(errors)
     }
+    // WOuld it be better to add in comments now?
+
     res.json(posts)
   })
   .catch(err => res.status(404).json({ postsnotfound: "Posts could not be found"}))
@@ -50,13 +51,14 @@ router.post(
       ...req.body,
       user: req.user.id
     })
+    console.log("inside crete post")
 
     post.save().then(post => res.json(post));
   }
 )
 
 // @route GET api/posts/:id
-// @desc  get a post by post id
+// @desc  get a post, with comments by post id
 // @access Public
 router.get('/:id', (req, res) => {
   const errors = {}
@@ -67,13 +69,13 @@ router.get('/:id', (req, res) => {
       errors.posts = "No post found"
       return res.status(404).json(errors)
     }
-    // fullPost.post = post
-    // Comment.find({post: req.params.id}).then(comments => {
-    //   fullPost.comments = comments
-    //   res.json(fullPost)
-    // })
-    console.log(post.comments);
-    res.json(post);
+    return res.json(post)
+    // Comment.find({post: post._id})
+    //   .then(comments => {
+    //     post.comments = comments
+    //     return res.json(post)
+    //   })
+    //   .catch(err => console.log(err))
     // .catch(err => res.status(404).json({ nocomments: "No comments"}))
   })
   .catch(err => console.log(`Post could not be found because: ${err}`))
@@ -98,11 +100,24 @@ router.delete(
   }
 )
 
+// @route GET api/posts/like/:id
+// @desc check if current User liked a post
+// @access Private
+router.get(
+  '/:id/like',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Like.findOne({ user: req.user.id, post: req.params.id })
+      .then(like => res.json(like))
+      .catch(err => console.log(err))
+  }
+)
+
 // @route POST api/posts/like/:id
 // @desc like a post
 // @access Private
 router.post(
-  '/like/:id',
+  '/:id/like',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     Post.findById(req.params.id)
@@ -126,7 +141,7 @@ router.post(
 // @desc like a post
 // @access Private
 router.post(
-  '/unlike/:id',
+  '/:id/unlike',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     Post.findById(req.params.id)
@@ -147,14 +162,26 @@ router.post(
   }
 )
 
-// @route POST /posts/comment/:id
+// @route GET /api/posts/comment/:id
+// @desc get a comment
+// Public
+router.get(`/:id/comment`, (req, res) => {
+  Comment.findById(req.params.id)
+  .then(comment => res.json(comment))
+  .catch(err => console.log(err))
+})
+
+// @route GET /api/posts/:id/comments
+// @desc get all comments from a post
+router.get(`/:id/comments`)
+
+// @route POST /posts/:id/comments
 // @desc add a comment
 // Private
 router.post(
-  '/comment/:id',
+  '/:id/comments',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    console.log('so')
     const { errors, isValid } = validateCommentInput(req.body);
     if (!isValid) {
       return res.status(404).json(errors)
@@ -184,7 +211,7 @@ router.post(
 // @desc delete a comment
 // Private
 router.delete(
-  '/comment/:id/:comment_id',
+  '/:id/comments/:comment_id',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     const errors = {}

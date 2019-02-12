@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const BottleSchema = new Schema({
+const HikeSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users'
@@ -10,18 +10,24 @@ const BottleSchema = new Schema({
     type: String,
     required: true
   },
-  flavor: {
+  date: {
     type: String,
     required: true
   },
-  size: {
+  location: {
     type: String,
     required: true
   },
-  drank: {
-    type: Boolean,
-    default: false
+  distance: {
+    type: String
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  comments: {
+    type: String
   }
 })
 
-module.exports = Bottle = mongoose.model('bottles', BottleSchema);
+module.exports = Hike = mongoose.model('hikes', HikeSchema);

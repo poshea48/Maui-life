@@ -3,22 +3,16 @@ const isEmpty = require('./is-empty');
 
 module.exports = function validateProfileInput(data) {
   let errors = {};
-
-  data.username = !isEmpty(data.handle) ? data.handle : '';
+  data.username = !isEmpty(data.username) ? data.username : '';
 
   if(!Validator.isLength(data.username, { min: 2, max: 40 })) {
-    errors.handle = "Handle needs to be between 2 and 40 characters"
+    errors.username = "Username needs to be between 2 and 40 characters"
   }
 
   if(Validator.isEmpty(data.username)) {
-    errors.handle = "Profile Handle is required"
+    errors.username = "Profile Username is required"
   }
 
-  if(!isEmpty(data.youtube)) {
-    if(!Validator.isURL(data.youtube)) {
-      errors.youtube = 'Not a valid URL';
-    }
-  }
   if(!isEmpty(data.twitter)) {
     if(!Validator.isURL(data.twitter)) {
       errors.twitter = 'Not a valid URL';
@@ -39,7 +33,6 @@ module.exports = function validateProfileInput(data) {
       errors.instagram = 'Not a valid URL';
     }
   }
-
   return {
     errors,
     isValid: isEmpty(errors)
