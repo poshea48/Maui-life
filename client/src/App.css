@@ -29,6 +29,12 @@ img {
   height: 100%;
 }
 
+.logout-button {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 .card-form {
   opacity: 0.9;
 }

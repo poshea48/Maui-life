@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const path = require('path')
 const port = process.env.PORT || 5000;
 
 const mongoose = require('mongoose');
@@ -25,17 +26,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // DB config
-
 const db = require('./config/keys').mongoURI;
   // process.env.MONGOLAB_URI ||
   // process.env.MONGOHQ_URL ||
 
 // Connect to MondoDB
-// mongoose.Promise = Promise
 mongoose.connect(db, { useNewUrlParser: true })
   // .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log({err: err}));
+  .catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -54,5 +53,24 @@ app.use('/api/comments', comments)
 // app.use('/api/pictures', pictures);
 // app.use('/api/bottles', bottles);
 // app.use('/api/locations', locations)
+
+// if app is not an api route then check if file is in client build
+/// then serve static assets
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    } else {
+      next()
+    }
+  })
+  app.use(express.static('client/build'))
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

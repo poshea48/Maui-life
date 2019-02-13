@@ -9,7 +9,6 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './components/home/Home';
-import ProfileForm from './components/profile/ProfileForm';
 import Profile from './components/profile/Profile'
 
 class App extends Component {

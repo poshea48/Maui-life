@@ -1,11 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import Spinner from '../common/Spinner'
+// import Spinner from '../common/Spinner'
 import isEmpty from '../../validation/is-empty';
 
-class CommentItem extends React.Component {
+class CommentItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,8 +33,6 @@ class CommentItem extends React.Component {
   render () {
     const {comment, commentUser} = this.state
     const date = !isEmpty(comment) && comment.date.split("T")[0]
-
-    let commentUserContent;
 
     return (
       <div className="card card-body mb-1 bg-success">

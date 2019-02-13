@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import PostItem from '../post/PostItem'
-import CommentForm from '../post/CommentForm'
-import CommentFeed from '../post/CommentFeed';
 
 class PostFeed extends Component {
   render () {

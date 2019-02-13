@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ProfileHeader from "./ProfileHeader"
 import Spinner from '../common/Spinner'
 import { getProfileByUserId } from '../../actions/profileActions'
-import isEmpty from '../../validation/is-empty'
 
 class Profile extends Component {
   componentDidMount() {

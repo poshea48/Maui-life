@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
 import { createTodo } from '../../actions/todoActions';
-import { withRouter } from 'react-router-dom';
 
 class AddTodo extends Component {
   constructor(props) {

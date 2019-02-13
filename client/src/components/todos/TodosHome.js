@@ -43,7 +43,7 @@ class TodosHome extends Component {
   }
 
   render() {
-    const { user } = this.props.auth
+    // const { user } = this.props.auth
     const { todos, loading } = this.props.todos
     let todosContent;
 

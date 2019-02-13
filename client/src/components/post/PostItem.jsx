@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames'
 import axios from 'axios'
-import { deletePost, likePost, removeLike, addComment} from '../../actions/postActions';
+import { deletePost, likePost, removeLike } from '../../actions/postActions';
 import Spinner from '../common/Spinner'
 import CommentFeed from '../post/CommentFeed';
+
 class PostItem extends Component {
   state = {
     postUser: {},
