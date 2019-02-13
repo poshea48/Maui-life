@@ -1,8 +1,7 @@
-import { GET_TODOS, TODOS_LOADING, UPDATE_TODOS, TOGGLE_COMPLETED, CLEAR_TODOS} from '../actions/types';
+import { GET_TODOS, TODOS_LOADING, UPDATE_TODOS, TOGGLE_COMPLETED, DELETE_TODO, CLEAR_TODOS} from '../actions/types';
 
 const initialState = {
   todos: null,
-  todo: null,
   loading: false
 }
 
@@ -20,7 +19,7 @@ export default(state = initialState, action) => {
         loading: false
       }
     case UPDATE_TODOS:
-      let todos = state.todos
+      let todos = [...state.todos]
       todos.push(action.payload)
       return {
         ...state,
@@ -28,10 +27,17 @@ export default(state = initialState, action) => {
         loading: false
       }
     case TOGGLE_COMPLETED:
-      todos = state.todos.map(todo => {
+      todos = [...state.todos].map(todo => {
         return todo._id === action.payload._id ? action.payload : todo
       })
 
+      return {
+        ...state,
+        todos: todos,
+        loading: false
+      }
+    case DELETE_TODO:
+      todos = [...state.todos].filter(todo => todo._id !== action.payload._id)
       return {
         ...state,
         todos: todos,

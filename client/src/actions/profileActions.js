@@ -6,7 +6,6 @@ export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading())
   axios.get('/api/profile')
   .then(res => {
-    console.log("am I here")
     return dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -46,12 +45,9 @@ export const saveProfile = (profileData, history) => dispatch => {
   axios
     .post('/api/profile', profileData)
     .then(res => {
-      console.log("hello inside saveProfile")
-      console.log(history)
       return history.push('/home')
     })
     .catch(err => {
-      console.log(err)
       return dispatch({
         type: GET_ERRORS,
         payload: err.response

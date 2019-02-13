@@ -70,6 +70,23 @@ router.post(
       todo.completed = !todo.completed
       todo.save().then(todo => res.json(todo))
     })
+    .catch(err => console.log(err))
+  }
+)
+
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Todo.findById(req.params.id)
+    .then(todo => {
+      // Check for post owner
+      if(todo.user.toString() !== req.user.id) {
+        return res.status(401).json({ notauthorized: "User not authorized"})
+      }
+      todo.remove().then((todo) => res.json(todo))
+    })
+    .catch(err => res.status(404).json({ todonotfound: "no todo found"}))
   }
 )
 

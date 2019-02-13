@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { TODOS_LOADING, GET_TODOS, UPDATE_TODOS, TOGGLE_COMPLETED, CLEAR_TODOS, GET_ERRORS} from './types';
+import { TODOS_LOADING, GET_TODOS, UPDATE_TODOS, TOGGLE_COMPLETED, DELETE_TODO, CLEAR_TODOS, GET_ERRORS} from './types';
 
 export const getTodos = () => dispatch => {
   dispatch(setTodosLoading())
-  console.log("inside actions getTodos")
   axios.get('/api/todos')
     .then(res => {
-      console.log("inside axios api call")
       return dispatch({
         type: GET_TODOS,
         payload: res.data
@@ -51,6 +49,17 @@ export const toggleCompleted = (todoId) => dispatch => {
     .then(res =>
       dispatch({
         type: TOGGLE_COMPLETED,
+        payload: res.data
+      })
+    )
+}
+
+export const deleteTodo = (todoId) => dispatch => {
+  axios
+    .delete(`/api/todos/${todoId}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_TODO,
         payload: res.data
       })
     )

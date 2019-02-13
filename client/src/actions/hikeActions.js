@@ -3,10 +3,8 @@ import { HIKES_LOADING, GET_HIKES, UPDATE_HIKES, GET_ERRORS} from './types';
 
 export const getHikes = () => dispatch => {
   dispatch(setHikesLoading())
-  console.log("inside actions getHikes")
   axios.get('/api/hikes')
     .then(res => {
-      console.log("inside axios api call")
       return dispatch({
         type: GET_HIKES,
         payload: res.data

@@ -43,66 +43,62 @@ class AddHike extends Component {
   render () {
     const { errors } = this.state
     return (
-      <div className="add-hike">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h3 className="display-5 ">Add Hike </h3>
-              <small className="d-block pb-3">* = required field</small>
-              <form onSubmit={this.onSubmit}>
-                <div className="todo-field">
-                  <TextFieldGroup
-                    name="name"
-                    placeholder="* Name of Hike"
-                    type="text"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                    error={errors.name}
-                  />
-                  <TextFieldGroup
-                    name="date"
-                    placeholder="* Date of Hike"
-                    type="date"
-                    value={this.state.date}
-                    onChange={this.onChange}
-                    error={errors.date}
-                  />
-                  <TextFieldGroup
-                    name="location"
-                    placeholder="* Where is this Hike"
-                    type="text"
-                    value={this.state.location}
-                    onChange={this.onChange}
-                    error={errors.location}
-                  />
-                  <TextFieldGroup
-                    name="rating"
-                    placeholder="* Rate this Hike out of 10"
-                    type="number"
-                    value={this.state.rating}
-                    onChange={this.onChange}
-                    error={errors.rating}
-                  />
-                  <TextFieldGroup
-                    name="distance"
-                    placeholder="How far did you go"
-                    type="text"
-                    value={this.state.distance}
-                    onChange={this.onChange}
-                    error={errors.distance}
-                  />
-                  <TextAreaFieldGroup
-                    placeholder="Add a comment"
-                    name="comments"
-                    value={this.state.comments}
-                    onChange={this.onChange}
-                    error={errors.comments}
-                  />
-                </div>
-                <button type="submit" className="btn btn-info btn-block">Add</button>
-              </form>
+      <div className="add-hike d-flex flex-column">
+        <div className="col-md-12">
+          <h3 className="display-5 text-muted">Add Hike </h3>
+          <small className="d-block">* = required field</small>
+          <form onSubmit={this.onSubmit}>
+            <div className="todo-field">
+              <TextFieldGroup
+                name="name"
+                placeholder="* Name of Hike"
+                type="text"
+                value={this.state.name}
+                onChange={this.onChange}
+                error={errors.name}
+              />
+              <TextFieldGroup
+                name="date"
+                placeholder="* Date of Hike"
+                type="date"
+                value={this.state.date}
+                onChange={this.onChange}
+                error={errors.date}
+              />
+              <TextFieldGroup
+                name="location"
+                placeholder="* Where is this Hike"
+                type="text"
+                value={this.state.location}
+                onChange={this.onChange}
+                error={errors.location}
+              />
+              <TextFieldGroup
+                name="rating"
+                placeholder="* Rate this Hike out of 10"
+                type="number"
+                value={this.state.rating}
+                onChange={this.onChange}
+                error={errors.rating}
+              />
+              <TextFieldGroup
+                name="distance"
+                placeholder="How far did you go"
+                type="text"
+                value={this.state.distance}
+                onChange={this.onChange}
+                error={errors.distance}
+              />
+              <TextAreaFieldGroup
+                placeholder="Add a comment"
+                name="comments"
+                value={this.state.comments}
+                onChange={this.onChange}
+                error={errors.comments}
+              />
             </div>
-          </div>
+            <button type="submit" className="btn btn-info btn-block">Add</button>
+          </form>
         </div>
       </div>
     )

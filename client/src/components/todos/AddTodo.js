@@ -15,12 +15,6 @@ class AddTodo extends Component {
     }
   }
 
-  // onAddFieldClick = e => {
-  //   this.setState({
-  //     addField: !this.state.addField
-  //   })
-  // }
-
   onChange = e => {
     return this.setState({
       [e.target.name]: e.target.value
@@ -45,7 +39,7 @@ class AddTodo extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h3 className="display-5 ">Add Something </h3>
+              <h4 className="display-5 text-muted">Add Something </h4>
               <small className="d-block pb-3">* = required field</small>
               <form onSubmit={this.onSubmit}>
                 <div className="todo-field">

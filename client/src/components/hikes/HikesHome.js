@@ -18,7 +18,7 @@ class HikesHome extends Component {
   componentDidMount() {
     this.props.getHikes();
   }
-  
+
   render () {
     const { hikes, loading } = this.props.hikes
     let hikesContent;
@@ -49,18 +49,14 @@ class HikesHome extends Component {
       }
     }
     return (
-      <div className="hikes">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h3 className="display-5 ">Your Hikes!</h3>
-              {hikesContent}
-            </div>
-            <div className="col-md-6">
-              <AddHike />
-            </div>
+      <div className="hikes d-flex flex-sm-row flex-column">
+          <div className="col-md-6">
+            <h3 className="display-5 text-muted mb-4">Your Hikes!</h3>
+            {hikesContent}
           </div>
-        </div>
+          <div className="col-md-6">
+            <AddHike />
+          </div>
       </div>
     )
   }

@@ -1,17 +1,16 @@
 import React from 'react'
 
 const TodoItem = (props) => {
-  const {todo, onChecked} = props
+  const {todo, onChecked, deleteTodo} = props
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-2 ">
           <span className="">
             <input
-              data-id={todo._id}
               type="checkbox"
               id="completed-box"
-              onChange={onChecked}
+              onChange={onChecked(todo._id)}
               checked={todo.completed}
             />
           <label htmlFor="completed-box"></label>
@@ -23,7 +22,9 @@ const TodoItem = (props) => {
           </h4>
           <p className="summary">{todo.description}</p>
         </div>
-        <div className="col-2 ">
+        <div className="col-2"
+          onClick={deleteTodo(todo._id)}
+          style={{cursor: "pointer"}}>
           <span className="delete">
             <i className="fa fa-trash text-danger"></i>
           </span>

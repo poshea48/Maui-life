@@ -12,6 +12,7 @@ export const GET_TODOS = 'GET_TODOS';
 export const UPDATE_TODOS = 'UPDATE_TODOS';
 export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
 export const CLEAR_TODOS = 'CLEAR_TODOS';
+export const DELETE_TODO = 'DELETE_TODO'
 
 export const HIKES_LOADING = 'HIKES_LOADING';
 export const GET_HIKES = 'GET_HIKES';
