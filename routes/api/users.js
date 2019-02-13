@@ -65,7 +65,6 @@ router.post('/register', (req, res) => {
 // @access Public
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log("I got here")
   const {errors, isValid} = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -76,7 +75,6 @@ router.post('/login', (req, res) => {
   User.findOne({email: email})
   .then(user => {
     // Check for user
-    console.log(user)
     if (!user) {
       errors.login = "Incorrect user/password combination"
       return res.status(404).json(errors)

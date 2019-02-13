@@ -9,6 +9,9 @@ import ProfileActions from './ProfileActions';
 import TodosHome from '../todos/TodosHome';
 import HikesHome from '../hikes/HikesHome';
 import Posts from '../posts/Posts'
+import LocationsHome from '../locations/LocationsHome'
+import PicturesHome from '../pictures/PicturesHome'
+
 
 class Home extends Component {
   constructor(props) {
@@ -92,6 +95,9 @@ class Home extends Component {
             <Route path="/home/todos" component={TodosHome} />
             <Route path="/home/hikes" component={HikesHome} />
             <Route path="/home/posts" component={Posts} />
+            <Route path="/home/locations" component={LocationsHome} />
+            <Route path="/home/photos" component={PicturesHome} />
+
           </Switch>
         </div>
 

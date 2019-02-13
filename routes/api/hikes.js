@@ -26,7 +26,6 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // console.log(`the body: ${req.body}`)
     const { errors, isValid } = validateHikeInput(req.body);
     if(!isValid) {
       return res.status(404).json(errors);

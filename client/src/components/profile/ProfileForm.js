@@ -84,7 +84,6 @@ class ProfileForm extends React.Component {
 
   render () {
     const {errors, displaySocialInputs } = this.state
-    console.log(this.props)
     let socialInputs;
 
     if (displaySocialInputs) {

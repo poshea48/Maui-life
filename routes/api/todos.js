@@ -7,17 +7,7 @@ const validateTodoInput = require('../../validation/create-todo');
 
 // Load Todo model
 const Todo = require('../../models/Todo');
-const todos = [
-  "Volleyball",
-  "Beach drank",
-  "Haleakala sunset",
-  "Hana hikes- puka, frog falls",
-  "Waihee hike",
-  "Resort hot tub crash",
-  "Snorkel- possibly Molokini",
-  "Whale watch",
-  "Lahaina bars"
-]
+
 // @route GET '/todos'
 // @desc list all todos
 // @access Private

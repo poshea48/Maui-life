@@ -21,8 +21,6 @@ class CommentForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state)
-    console.log(this.props.postId)
     this.props.addComment(this.props.postId, {text : this.state.text})
     this.setState({ text: '', errors: {}})
   }

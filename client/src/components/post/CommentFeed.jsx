@@ -6,10 +6,9 @@ class CommentFeed extends Component {
   render() {
     const { post } = this.props
     const { comments } = post
-    const commentsContent = comments
-      .map(comment => (
-      <CommentItem key={comment._id} comment={comment} />)
-      )
+    const commentsContent = comments.map(comment =>
+      <CommentItem key={comment} comment={comment} />
+    )
     return (
       <div className="comments d-flex flex-column">
         <div>

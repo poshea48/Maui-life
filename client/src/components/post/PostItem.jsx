@@ -28,14 +28,6 @@ class PostItem extends Component {
     this.props.removeLike(this.props.post._id)
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevState)
-  //   console.log(this.props)
-  //   // if (prevProps.state.post !== this.props.post) {
-  //   //   this.setState({post: this.props.post})
-  //   // }
-  // }
-
   componentDidMount() {
     axios.get(`/api/profile/user/${this.props.post.user}`)
     .then(res => this.setState({ postUser: res.data.user}))

@@ -1,12 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import ComingSoon from '../common/ComingSoon'
 
-class PicturesHome extends React.Component {
+class PicturesHome extends Component {
   render () {
     return (
-      <div>
-        <h2>This page is not ready yet</h2>
-      </div>
+      <ComingSoon />
     )
   }
 }

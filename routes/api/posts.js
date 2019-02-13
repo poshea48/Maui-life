@@ -51,7 +51,6 @@ router.post(
       ...req.body,
       user: req.user.id
     })
-    console.log("inside crete post")
 
     post.save().then(post => res.json(post));
   }
@@ -70,13 +69,7 @@ router.get('/:id', (req, res) => {
       return res.status(404).json(errors)
     }
     return res.json(post)
-    // Comment.find({post: post._id})
-    //   .then(comments => {
-    //     post.comments = comments
-    //     return res.json(post)
-    //   })
-    //   .catch(err => console.log(err))
-    // .catch(err => res.status(404).json({ nocomments: "No comments"}))
+
   })
   .catch(err => console.log(`Post could not be found because: ${err}`))
 })

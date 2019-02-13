@@ -14,7 +14,7 @@ const ProfileActions = (props) => {
               <i className="fas fa-hiking text-dark mr-1"></i>
               <span className="d-none d-sm-inline">Hikes</span>
             </Link>
-            <Link to="/photos" className="col-2 btn btn-sm btn-primary mr-1 mb-1">
+            <Link to="/home/photos" className="col-2 btn btn-sm btn-primary mr-1 mb-1">
               <i className="fas fa-camera text-dark mr-1"></i>
               <span className="d-none d-sm-inline">Photos</span>
             </Link>
@@ -23,7 +23,7 @@ const ProfileActions = (props) => {
               <span className="d-none d-sm-inline">Posts</span>
             </Link>
 
-            <Link to="/locations" className="col-2 btn btn-sm btn-primary mr-1 mb-1">
+            <Link to="/home/locations" className="col-2 btn btn-sm btn-primary mr-1 mb-1">
               <i className="fas fa-map-marked-alt text-dark mr-1 mb-1"></i>
               <span className="d-none d-sm-inline">Map</span>
             </Link>
