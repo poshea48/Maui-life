@@ -26,8 +26,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
   // Get all todos from db
-  console.log("inside backend Todo.find")
-  
+
     Todo.find({user: req.user.id})
       .then(todos => {
         if (todos) {
@@ -59,10 +58,8 @@ router.post(
         errors.name = "Todo already exists"
         return res.status(404).json(errors)
       } else {
-        console.log(req.body)
         new Todo({user: req.user.id, ...req.body }).save()
           .then(todo => {
-            console.log(`inside then ${todo}`)
             return res.json(todo)
           })
           .catch(err => console.log(err));

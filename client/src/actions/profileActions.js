@@ -6,6 +6,7 @@ export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading())
   axios.get('/api/profile')
   .then(res => {
+    console.log("am I here")
     return dispatch({
       type: GET_PROFILE,
       payload: res.data

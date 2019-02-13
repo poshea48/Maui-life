@@ -1,8 +1,13 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const app = express();
 const bodyParser = require('body-parser');
-const passport = require('passport');
+const cors = require('cors')
+const port = process.env.PORT || 5000;
 
+const mongoose = require('mongoose');
+const passport = require('passport');
+// so we can work with environment variable
+// require('dotenv').config()
 // route files
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
@@ -13,20 +18,24 @@ const hikes = require('./routes/api/hikes');
 const locations = require('./routes/api/locations');
 const comments = require('./routes/api/comments')
 
-const app = express();
+app.use(cors())
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // DB config
+
 const db = require('./config/keys').mongoURI;
+  // process.env.MONGOLAB_URI ||
+  // process.env.MONGOHQ_URL ||
 
 // Connect to MondoDB
-mongoose
-  .connect(db, { useNewUrlParser: true })
+// mongoose.Promise = Promise
+mongoose.connect(db, { useNewUrlParser: true })
+  // .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.log({err: err}));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -46,5 +55,4 @@ app.use('/api/comments', comments)
 // app.use('/api/bottles', bottles);
 // app.use('/api/locations', locations)
 
-const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`))

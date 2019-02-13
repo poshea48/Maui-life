@@ -64,9 +64,8 @@ router.post('/register', (req, res) => {
 // @desc Login user / Returning JWT Token
 // @access Public
 router.post('/login', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
+  const { email, password } = req.body;
+  console.log("I got here")
   const {errors, isValid} = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -74,8 +73,10 @@ router.post('/login', (req, res) => {
   }
 
   // Find user by email
-  User.findOne({email}).then(user => {
+  User.findOne({email: email})
+  .then(user => {
     // Check for user
+    console.log(user)
     if (!user) {
       errors.login = "Incorrect user/password combination"
       return res.status(404).json(errors)
@@ -105,6 +106,7 @@ router.post('/login', (req, res) => {
       }
     })
   })
+  .catch(err => console.log(err))
 })
 
 // @route GET api/users/current
