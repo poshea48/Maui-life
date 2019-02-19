@@ -8,6 +8,17 @@
   flex: 1 auto;
 }
 
+button:focus {
+  outline: none !important;
+}
+p {
+  line-height: 1;
+}
+
+a {
+  text-decoration: none !important;
+}
+
 img {
   width: 100%;
 }
@@ -16,7 +27,6 @@ img {
   position: relative;
   /* background: url('./img/MauiLife-1__opt3.jpg') no-repeat; */
   background:linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url('./img/MauiLife-1__opt3.jpg');
-
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -42,6 +52,15 @@ img {
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.comment-card {
+  border-radius: 50px;
+  line-height: 0.5;
 }
 
 .card-form {

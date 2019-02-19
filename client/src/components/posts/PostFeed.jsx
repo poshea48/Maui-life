@@ -5,6 +5,7 @@ import PostItem from '../post/PostItem'
 class PostFeed extends Component {
   render () {
     const { posts } = this.props
+    console.log(posts)
     const postFeed = posts.map(post => (
       <div key={post._id} className="card card-body mb-2">
         <PostItem

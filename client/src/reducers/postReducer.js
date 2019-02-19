@@ -1,8 +1,7 @@
-import { GET_POSTS, GET_POST, ADD_POST, LIKE_POST, REMOVE_LIKE, ADD_COMMENT, DELETE_POST, POST_LOADING } from '../actions/types';
+import { GET_POSTS, GET_POST, ADD_POST, LIKE_POST, REMOVE_LIKE, GET_COMMENTS, ADD_COMMENT, DELETE_POST, POST_LOADING } from '../actions/types';
 
 const initialState = {
   posts: [],
-  post: {},
   loading: false
 }
 
@@ -32,26 +31,22 @@ export default (state = initialState, action) => {
         posts: action.payload,
         loading: false
       }
-    case GET_POST:
-      return {
-        ...state,
-        post: action.payload
-      }
+
     case ADD_POST:
       return {
         ...state,
-        posts: [action.payload, ...state.posts]
+        posts: [...action.payload]
       }
     case LIKE_POST:
       return {
         ...state,
         posts: updatePosts(action.payload, state.posts)
       }
-      case REMOVE_LIKE:
-        return {
-          ...state,
-          posts: updatePosts(action.payload, state.posts)
-        }
+    case REMOVE_LIKE:
+      return {
+        ...state,
+        posts: updatePosts(action.payload, state.posts)
+      }
     case ADD_COMMENT:
       return {
         ...state,

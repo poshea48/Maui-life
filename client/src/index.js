@@ -10,9 +10,10 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentProfile } from './actions/profileActions';
 import { clearTodos } from './actions/todoActions'
 import { Provider } from 'react-redux';
-import store from './store';
+import { configureStore}  from './store';
 
 import * as serviceWorker from './serviceWorker';
+const store = configureStore()
 
 if (localStorage.jwtTokenMaui) {
   // Set auth token header auth
@@ -33,6 +34,7 @@ if (localStorage.jwtTokenMaui) {
     window.location.href = '/login'
   }
 }
+
 
 ReactDOM.render(
   <Provider store={store}>

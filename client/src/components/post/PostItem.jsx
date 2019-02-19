@@ -7,12 +7,9 @@ import axios from 'axios'
 import { deletePost, likePost, removeLike } from '../../actions/postActions';
 import Spinner from '../common/Spinner'
 import CommentFeed from '../post/CommentFeed';
+import isEmpty from '../../validation/is-empty'
 
 class PostItem extends Component {
-  state = {
-    postUser: {},
-  }
-
   onDelete = e => {
     e.preventDefault();
     this.props.deletePost(this.props.post._id)
@@ -28,17 +25,14 @@ class PostItem extends Component {
     this.props.removeLike(this.props.post._id)
   }
 
-  componentDidMount() {
-    axios.get(`/api/profile/user/${this.props.post.user}`)
-    .then(res => this.setState({ postUser: res.data.user}))
-    .catch(err => console.log(err ))
-  }
-
   render () {
     const { post } = this.props
+    if (isEmpty(post)) {
+      return (<Spinner />)
+    }
     const currentUser = this.props.auth.user
-    const { postUser } = this.state
-    const currentLiked = (post.user === currentUser.id) && post.likes_count > 0
+    const postUser = post.user
+    const currentLiked =  (postUser._id === currentUser.id) && post.likes_count > 0
     const thumbIconClass = classnames({
       'fas fa-thumbs-up': true,
       'text-success': currentLiked,
@@ -46,7 +40,7 @@ class PostItem extends Component {
     })
     const date = post.date.split("T")[0]
     return (
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column" >
         {Object.keys(postUser).length > 0 ? (
           <div className="col-md-12">
 
@@ -68,7 +62,7 @@ class PostItem extends Component {
           </div>
         ) : (
           <div className="col-md-12">
-            <Spinner />
+            <p className="text-muted m-0">No known User</p>
           </div>
         )}
         <div className="col-md-12 mt-2 mb-2">
@@ -88,7 +82,7 @@ class PostItem extends Component {
               <i className="text-secondary fas fa-thumbs-down"></i>
             </button>
 
-            {post.user === currentUser.id ? (
+            {postUser._id === currentUser.id ? (
               <button
                 type="button"
                 className="thumb btn btn-white mr-1"
@@ -107,14 +101,13 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
   deletePost: PropTypes.func.isRequired,
   likePost: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps, { deletePost, likePost, removeLike})(PostItem);

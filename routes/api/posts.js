@@ -24,6 +24,11 @@ router.get('/', (req, res) => {
   const errors = {}
   Post.find()
   .sort({date: -1})
+  .populate('user')
+  .populate({
+    path: 'comments',
+    populate: { path: 'user'}
+  })
   .then(posts => {
     if(!posts) {
       errors.posts = "No posts found"
@@ -52,7 +57,17 @@ router.post(
       user: req.user.id
     })
 
-    post.save().then(post => res.json(post));
+    post.save()
+    .then(() => {
+      Post.find()
+      .sort({date: -1})
+      .populate('user')
+      .populate({
+        path: 'comments',
+        populate: { path: 'user'}
+      })
+      .then(posts => res.json(posts))
+    })
   }
 )
 
@@ -93,7 +108,7 @@ router.delete(
   }
 )
 
-// @route GET api/posts/like/:id
+// @route GET api/posts/:id/like/:id
 // @desc check if current User liked a post
 // @access Private
 router.get(
@@ -114,18 +129,29 @@ router.post(
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     Post.findById(req.params.id)
+    .populate('user', ['name', 'avatar'])
+    .populate({
+      path: 'comments',
+      select: ['user', 'text', 'date'],
+      populate: { path: 'user', select: ['name', 'avatar']}
+    })
     .then(post => {
-      Like.find({post: post.id, user: req.user.id}).then(like => {
+      Like.find({post: post.id, user: req.user.id})
+      .then(like => {
         if(like.length > 0) {
           return res.status(400).json({ msg: "You can only like once"})
         }
         const newLike = new Like({user: req.user.id, post: post.id})
-        newLike.save().then(() => {
+        newLike.save()
+        .then(() => {
           post.likes_count = post.likes_count + 1
-          post.save().then(post => res.json(post))
+          post.save()
+          .then(post => {
+            console.log(post)
+            return res.json(post)
+          })
         })
       })
-
     })
     .catch(err => res.status(404).json({ postnotfound: "no post found"}))
   }
@@ -138,35 +164,27 @@ router.post(
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     Post.findById(req.params.id)
+    .populate('user', ['name', 'avatar'])
+    .populate({
+      path: 'comments',
+      populate: { path: 'user'}
+    })
     .then(post => {
-      Like.findOne({post: post.id, user: req.user.id}).then(like => {
+      Like.findOne({post: post.id, user: req.user.id})
+      .then(like => {
         if(!like) {
           return res.status(400).json({ msg: "You must like before you dislike"})
         }
-
-        like.remove().then(() => {
+        like.remove()
+        .then(() => {
           post.likes_count = post.likes_count - 1;
           post.save().then(post => res.json(post))
-        }).catch(err => console.log("SOmething happened" + err))
+        })
       })
-      .catch(err => console.log(`Something went wrong when searching for like: ${err}`))
     })
     .catch(err => res.status(404).json({ postnotfound: "no post found"}))
   }
 )
-
-// @route GET /api/posts/comment/:id
-// @desc get a comment
-// Public
-router.get(`/:id/comment`, (req, res) => {
-  Comment.findById(req.params.id)
-  .then(comment => res.json(comment))
-  .catch(err => console.log(err))
-})
-
-// @route GET /api/posts/:id/comments
-// @desc get all comments from a post
-router.get(`/:id/comments`)
 
 // @route POST /posts/:id/comments
 // @desc add a comment
@@ -181,6 +199,12 @@ router.post(
     }
 
     Post.findById(req.params.id)
+    .populate('user', ['name', 'avatar'])
+    .populate({
+      path: 'comments',
+      select: ['user', 'text', 'date'],
+      populate: { path: 'user', select: ['name', 'avatar']}
+    })
     .then(post => {
       const newComment = new Comment({
         user: req.user.id,
@@ -191,10 +215,9 @@ router.post(
       .then(comment => {
         post.comments.push(comment)
         post.save()
-        .then(post => res.json(post))
-        .catch(err => res.json({err: err}))
+        return res.json(post)
+        // .then(post => res.json(post))
       })
-      .catch(err => res.json({err: err}))
     })
     .catch(err => res.json({err: err}))
   }
@@ -209,6 +232,12 @@ router.delete(
   (req, res) => {
     const errors = {}
     Post.findById(req.params.id)
+    .populate('user', ['name', 'avatar'])
+    .populate({
+      path: 'comments',
+      select: ['user', 'text', 'date'],
+      populate: { path: 'user', select: ['name', 'avatar']}
+    })
     .then(post => {
       Comment.findById(req.params.comment_id)
       .then(comment => {
@@ -221,15 +250,12 @@ router.delete(
           .then(() => {
             Comment.find({post: post.id})
             .then(comments => res.json({post: post, comments: comments }))
-            .catch(err => res.json({err: `Something happened: ${err}`}))
           })
-          .catch(err => res.json({err: `Something happened: ${err}`}))
         } else {
           errors.comment = "You do not have the authority to remove that comment"
           return res.json(errors)
         }
       })
-      .catch(err => res.json({err: `Something happened: ${err}`}))
     })
     .catch(err => console.log(`Something went wrong finding the post: ${err}`))
   }

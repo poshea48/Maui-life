@@ -1,4 +1,4 @@
-import { GET_POSTS, GET_POST, POST_LOADING, ADD_POST, LIKE_POST, REMOVE_LIKE, ADD_COMMENT, DELETE_POST, GET_ERRORS } from './types'
+import { GET_POSTS, GET_POST, POST_LOADING, ADD_POST, LIKE_POST, REMOVE_LIKE, GET_COMMENTS, ADD_COMMENT, DELETE_POST, GET_ERRORS } from './types'
 import axios from 'axios'
 
 export const getPosts = () => dispatch => {
@@ -21,12 +21,28 @@ export const getPosts = () => dispatch => {
     )
 }
 
-export const getPost = (post) => dispatch => {
-  dispatch({
-    type: GET_POST,
-    payload: post
-  })
-}
+// export const getPost = (post) => dispatch => {
+//   axios
+//     .get(`/api/profile/user/${post.user}`)
+//     .then(res => {
+//       post.user = res.data.user
+//
+//       axios.get(`/api/posts/${post._id}/comments`)
+//         .then(res => {
+//           post.comments = res.data
+//           return dispatch({
+//             type: GET_POST,
+//             payload: post
+//           })
+//         })
+//     })
+//     .catch(err =>
+//       dispatch({
+//         type: GET_POST,
+//         payload: {}
+//       })
+//     )
+// }
 
 export const addPost = (postData) => dispatch => {
   axios
@@ -47,11 +63,13 @@ export const addPost = (postData) => dispatch => {
 
 export const likePost = (postId) => dispatch => {
   axios.post(`/api/posts/${postId}/like`)
-    .then(res =>
-      dispatch({
+    .then(res => {
+      console.log(res.data)
+      return dispatch({
         type: LIKE_POST,
         payload: res.data
       })
+    }
     )
     .catch(err =>
       dispatch({
