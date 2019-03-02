@@ -25,6 +25,7 @@ class App extends Component {
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute path="/profile/create" component={CreateProfile} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
+            <PrivateRoute exact path="/profile/user/:id" component={Profile} />
           </Switch>
         </div>
         <Footer />
