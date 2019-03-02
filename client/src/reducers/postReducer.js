@@ -1,9 +1,17 @@
-import { GET_POSTS, GET_POST, ADD_POST, LIKE_POST, REMOVE_LIKE, GET_COMMENTS, ADD_COMMENT, DELETE_POST, POST_LOADING } from '../actions/types';
+import {
+  GET_POSTS,
+  ADD_POST,
+  LIKE_POST,
+  REMOVE_LIKE,
+  ADD_COMMENT,
+  DELETE_POST,
+  POST_LOADING
+} from "../actions/types";
 
 const initialState = {
   posts: [],
   loading: false
-}
+};
 
 const updatePosts = (newPost, posts) => {
   return posts.map(post => {
@@ -11,12 +19,12 @@ const updatePosts = (newPost, posts) => {
       return {
         ...post,
         ...newPost
-      }
+      };
     } else {
-      return post
+      return post;
     }
-  })
-}
+  });
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -24,40 +32,40 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true
-      }
+      };
     case GET_POSTS:
       return {
         ...state,
         posts: action.payload,
         loading: false
-      }
+      };
 
     case ADD_POST:
       return {
         ...state,
         posts: [...action.payload]
-      }
+      };
     case LIKE_POST:
       return {
         ...state,
         posts: updatePosts(action.payload, state.posts)
-      }
+      };
     case REMOVE_LIKE:
       return {
         ...state,
         posts: updatePosts(action.payload, state.posts)
-      }
+      };
     case ADD_COMMENT:
       return {
         ...state,
         posts: updatePosts(action.payload, state.posts)
-      }
+      };
     case DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload)
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
