@@ -11,6 +11,14 @@ import Register from "./components/auth/Register";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
 import CreateProfile from "./components/profile/CreateProfile";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 auto
+  padding: 0 15px;
+`;
 
 class App extends Component {
   render() {
@@ -18,7 +26,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Route exact path="/" component={Landing} />
-        <div className="container app-content">
+        <Container>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Switch>
@@ -27,7 +35,7 @@ class App extends Component {
             <PrivateRoute exact path="/profile/:id" component={Profile} />
             <PrivateRoute exact path="/profile/user/:id" component={Profile} />
           </Switch>
-        </div>
+        </Container>
         <Footer />
       </div>
     );

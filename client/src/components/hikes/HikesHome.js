@@ -11,14 +11,14 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  @media (max-width: 575px) {
+  @media (max-width: 720px) {
     flex-direction: column;
   }
 `;
 
 const Section = styled.div`
   width: 48%;
-  @media (max-width: 575px) {
+  @media (max-width: 720px) {
     width: 100%;
   }
 `;
@@ -31,7 +31,7 @@ const Scroll = styled.div`
   margin-bottom: 10px;
   border-radius: 5px;
   border-bottom: 40px solid #17a2b8;
-  @media (max-width: 575px) {
+  @media (max-width: 720px) {
     flex-direction: row;
     flex-wrap: none;
     overflow-x: scroll;
