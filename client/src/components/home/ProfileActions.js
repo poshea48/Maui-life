@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ActionLink from "./ActionLink";
 
@@ -10,8 +9,6 @@ const Container = styled.div`
 `;
 
 const ProfileActions = props => {
-  // <div className="d-flex flex-row flex-wrap justify-content-center">
-  // </div>
   return (
     <Container>
       <ActionLink endpoint="/home/todos" name="Todos" />
