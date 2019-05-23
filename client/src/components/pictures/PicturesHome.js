@@ -1,12 +1,6 @@
-import React, { Component } from 'react'
-import ComingSoon from '../common/ComingSoon'
+import React, { Component } from "react";
+import ComingSoon from "../common/ComingSoon";
 
-class PicturesHome extends Component {
-  render () {
-    return (
-      <ComingSoon />
-    )
-  }
-}
+const PicturesHome = () => <ComingSoon />;
 
 export default PicturesHome;

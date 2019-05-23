@@ -1,12 +1,6 @@
-import React from 'react'
-import ComingSoon from '../common/ComingSoon'
+import React from "react";
+import ComingSoon from "../common/ComingSoon";
 
-class LocationsHome extends React.Component {
-  render () {
-    return (
-      <ComingSoon />
-    )
-  }
-}
+const LocationsHome = () => <ComingSoon />;
 
 export default LocationsHome;
