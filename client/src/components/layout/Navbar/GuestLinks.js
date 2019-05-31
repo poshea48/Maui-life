@@ -1,12 +1,12 @@
 import React from "react";
 import NavLink from "./NavLink";
-import UserLinks from "./UserLinks";
+import LinksWrapper from "./LinksWrapper";
 
 const GuestLinks = () => (
-  <UserLinks>
+  <LinksWrapper>
     <NavLink to="/register">Sign Up</NavLink>
     <NavLink to="/login">Log In</NavLink>
-  </UserLinks>
+  </LinksWrapper>
 );
 
 export default GuestLinks;

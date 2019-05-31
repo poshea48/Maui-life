@@ -13,6 +13,6 @@ const List = styled.ul`
   }
 `;
 
-const UserLinks = ({ children }) => <List>{children}</List>;
+const LinksWrapper = ({ children }) => <List>{children}</List>;
 
-export default UserLinks;
+export default LinksWrapper;

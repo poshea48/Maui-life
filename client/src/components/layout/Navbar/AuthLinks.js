@@ -1,10 +1,10 @@
 import React from "react";
-import UserLinks from "./UserLinks";
+import LinksWrapper from "./LinksWrapper";
 import NavLink from "./NavLink";
 import LogOutNav from "./LogOutNav";
 
 const AuthLinks = ({ user, onLogoutClick }) => (
-  <UserLinks>
+  <LinksWrapper>
     <NavLink to="/home">Home</NavLink>
     <NavLink to={`/profile/${user.id}`}>Profile</NavLink>
     <LogOutNav
@@ -12,7 +12,7 @@ const AuthLinks = ({ user, onLogoutClick }) => (
       avatar={user.avatar}
       onLogoutClick={onLogoutClick}
     />
-  </UserLinks>
+  </LinksWrapper>
 );
 
 export default AuthLinks;
