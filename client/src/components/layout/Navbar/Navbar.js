@@ -19,7 +19,7 @@ const Navbar = props => {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
       <div className="container">
-        <NavLink brand to="/">
+        <NavLink brand="true" to="/">
           Maui Life
         </NavLink>
         <button

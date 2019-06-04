@@ -26,13 +26,16 @@ img {
 .landing {
   position: relative;
   /* background: url('./img/MauiLife-1__opt3.jpg') no-repeat; */
-  background:linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url('./img/MauiLife-1__opt3.jpg');
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    url("./img/MauiLife-1__opt3.jpg");
   background-size: cover;
   background-position: center;
   height: 100vh;
   margin-top: -24px;
   margin-bottom: -50px;
-
 }
 
 .landing-inner {
@@ -82,8 +85,11 @@ img {
 }
 
 .hike-item-img {
-  background:linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url('/img/map_snippet.jpg');
-
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    url("/img/map_snippet.jpg");
 }
 
 .comment-input {
@@ -99,6 +105,5 @@ img {
   width: 100px;
 }
 .thumb:hover {
-
   background-color: #f7f5f2;
 }

@@ -1,45 +1,67 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  font-size: 100px;
+  color: #fff;
+  font-family: fantasy;
+`;
+const P = styled.p`
+  font-size: 1.25rem;
+  font-weight: 300;
+  text-align: center;
+  color: #212529;
+`;
+
+const LinksWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/home')
+      this.props.history.push("/");
     }
   }
 
   render() {
     return (
-      <div className="landing">
-        <div className="dark-overlay landing-inner text-light">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Maui Life
-                </h1>
-                <p className="lead"> Register or Login to see Maui Life</p>
-                <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">Sign Up</Link>
-              <Link to="/login" className="btn btn-lg btn-light">Login</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Container className="landing">
+        <Title>Maui Life</Title>
+        <P>Register or Login to see Maui Life</P>
+        <hr />
+        <LinksWrapper>
+          <Link to="/register" className="btn btn-lg btn-primary mr-2">
+            Sign Up
+          </Link>
+          <Link to="/login" className="btn btn-lg btn-dark">
+            Login
+          </Link>
+        </LinksWrapper>
+      </Container>
     );
   }
 }
 
 Landing.propTypes = {
   auth: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => {
   return {
     auth: state.auth
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Landing);
