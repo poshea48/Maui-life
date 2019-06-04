@@ -7,6 +7,8 @@ import isEmpty from "../../validation/is-empty";
 import { Link, Route, Switch, Redirect } from "react-router-dom";
 import ProfileActions from "./ProfileActions";
 import Posts from "../posts/Posts";
+import Layout from "../layout/Layout";
+import styled from "styled-components";
 
 // code split Todos/Hikes/locations/pictures
 const TodosHome = lazy(() => import("../todos/TodosHome"));
@@ -14,6 +16,11 @@ const HikesHome = lazy(() => import("../hikes/HikesHome"));
 const LocationsHome = lazy(() => import("../locations/LocationsHome"));
 const PicturesHome = lazy(() => import("../pictures/PicturesHome"));
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +80,7 @@ class Home extends Component {
       }
     }
     return (
-      <div className="home">
+      <Layout>
         <div className="container">
           <div className="row">
             <div className="col-lg-5 col-md-12">
@@ -97,7 +104,7 @@ class Home extends Component {
             </Suspense>
           </Switch>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

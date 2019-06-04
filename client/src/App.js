@@ -27,19 +27,15 @@ const Container = styled.div`
 
 const App = () => (
   <AppContainer>
-    <Navbar />
     <Route exact path="/" component={Landing} />
-    <Container>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Switch>
-        <PrivateRoute path="/home" component={Home} />
-        <PrivateRoute path="/profile/create" component={CreateProfile} />
-        <PrivateRoute exact path="/profile/:id" component={Profile} />
-        <PrivateRoute exact path="/profile/user/:id" component={Profile} />
-      </Switch>
-    </Container>
-    <Footer />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/register" component={Register} />
+    <Switch>
+      <PrivateRoute path="/home" component={Home} />
+      <PrivateRoute path="/profile/create" component={CreateProfile} />
+      <PrivateRoute exact path="/profile/:id" component={Profile} />
+      <PrivateRoute exact path="/profile/user/:id" component={Profile} />
+    </Switch>
   </AppContainer>
 );
 

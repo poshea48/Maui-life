@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
+  padding-top: 80px;
 `;
 
 const Title = styled.h1`
@@ -15,6 +15,9 @@ const Title = styled.h1`
   font-size: 100px;
   color: #fff;
   font-family: fantasy;
+  @media (max-width: 420px) {
+    font-size: 70px;
+  }
 `;
 const P = styled.p`
   font-size: 1.25rem;

@@ -15,6 +15,7 @@ const StyledLink = styled(Link)`
   font-size: ${p => (p.brand ? `1.55rem` : `1rem`)};
   padding-left: 0.5em;
   padding-right: 0.5em;
+  font-family: ${p => (p.brand ? "fantasy" : "inherit")}
 
   &:hover {
     color: ${p => (p.brand ? `#fff` : `rgba(255, 255, 255, 1)`)};
