@@ -13,7 +13,7 @@ const List = styled.ul`
     flex-direction: column;
   }
 `;
-const CommonLinks = ({}) => (
+const CommonLinks = () => (
   <List>
     <NavLink to="/profiles">Profiles</NavLink>
   </List>
