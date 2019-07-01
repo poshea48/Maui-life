@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import PrivateRoute from "./components/common/PrivateRoute";
 import "./App.css";
 
@@ -10,6 +10,8 @@ import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
 import CreateProfile from "./components/profile/CreateProfile";
 import styled from "styled-components";
+
+import NoMatchPage from "./components/common/NoMatchPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,6 +29,7 @@ const App = () => (
       <PrivateRoute path="/profile/create" component={CreateProfile} />
       <PrivateRoute exact path="/profile/:id" component={Profile} />
       <PrivateRoute exact path="/profile/user/:id" component={Profile} />
+      <Route path="*" component={NoMatchPage} />
     </Switch>
   </AppContainer>
 );

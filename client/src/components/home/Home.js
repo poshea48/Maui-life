@@ -8,7 +8,7 @@ import { Link, Route, Switch, Redirect } from "react-router-dom";
 import ProfileActions from "./ProfileActions";
 import Posts from "../posts/Posts";
 import Layout from "../layout/Layout";
-
+import NoMatchPage from "../common/NoMatchPage";
 // code split Todos/Hikes/locations/pictures
 const TodosHome = lazy(() => import("../todos/TodosHome"));
 const HikesHome = lazy(() => import("../hikes/HikesHome"));
