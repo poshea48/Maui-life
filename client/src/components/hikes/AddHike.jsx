@@ -8,6 +8,9 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 50px;
 `;
 const FormField = styled.div`
   display: block;
@@ -25,7 +28,7 @@ const FormField = styled.div`
   > input {
     border: none;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 12px;
     height: 100%;
     width: 100%;
     padding: 0.375rem 0.75rem;
@@ -76,14 +79,13 @@ class AddHike extends Component {
     const { errors } = this.state;
     return (
       <Container>
-        <h3 className="display-5 text-muted">Add Hike </h3>
         <small className="d-block">* = required field</small>
         <form onSubmit={this.onSubmit}>
           <div className="todo-field">
             <FormField>
               <input
                 name="name"
-                placeholder="* Name of Hike"
+                placeholder="* Add a Hike"
                 type="text"
                 value={this.state.name}
                 onChange={this.onChange}

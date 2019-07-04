@@ -6,6 +6,19 @@ import { clearCurrentProfile } from "../../../actions/profileActions";
 import { clearTodos } from "../../../actions/todoActions";
 import CollapsableLinks from "./CollapsableLinks";
 import NavLink from "./NavLink";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: #343a40 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 25;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Navbar = props => {
   const onLogoutClick = e => {
@@ -17,27 +30,17 @@ const Navbar = props => {
   const { isAuthenticated, user } = props.auth;
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-      <div className="container">
-        <NavLink brand="true" to="/">
-          Maui Life
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#mobile-nav"
-          aria-expanded="true"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <CollapsableLinks
-          user={user}
-          logOut={onLogoutClick}
-          isAuthenticated={isAuthenticated}
-        />
-      </div>
-    </nav>
+    <Container id="nav">
+      <NavLink brand="true" to="/">
+        Maui Life
+      </NavLink>
+
+      <CollapsableLinks
+        user={user}
+        logOut={onLogoutClick}
+        isAuthenticated={isAuthenticated}
+      />
+    </Container>
   );
 };
 

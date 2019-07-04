@@ -45,7 +45,7 @@ class Landing extends Component {
         <P>Register or Login to see Maui Life</P>
         <hr />
         <LinksWrapper>
-          <Link to="/register" className="btn btn-lg btn-primary mr-2">
+          <Link to="/register" className="btn btn-lg btn-dark mr-2">
             Sign Up
           </Link>
           <Link to="/login" className="btn btn-lg btn-dark">

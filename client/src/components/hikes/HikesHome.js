@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import Spinner from "../common/Spinner";
 import isEmpty from "../../validation/is-empty";
 import { getHikes } from "../../actions/hikeActions";
@@ -8,8 +7,12 @@ import AddHike from "./AddHike";
 import HikeItem from "./HikeItem";
 // import Scroll from '../common/Scroll'
 import styled from "styled-components";
+
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   justify-content: space-between;
   @media (max-width: 720px) {
     flex-direction: column;
@@ -23,14 +26,33 @@ const Section = styled.div`
   }
 `;
 
+const FixedSection = styled(Section)`
+  margin-top: 35px;
+
+  @media (max-width: 720px) {
+    margin-top: 0;
+  }
+`;
+
+const Title = styled.h3`
+  text-align: center;
+  height: 1.2em;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`;
+
 const Scroll = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  max-height: 380px;
-  margin-bottom: 10px;
   border-radius: 5px;
-  border-bottom: 40px solid #17a2b8;
   @media (max-width: 720px) {
     flex-direction: row;
     flex-wrap: none;
@@ -39,67 +61,61 @@ const Scroll = styled.div`
   }
 `;
 
-class HikesHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hikes: []
-    };
-  }
-  componentDidMount() {
-    this.props.getHikes();
-  }
+const HikesHome = ({ getHikes }) => {
+  const hikes = useSelector(state => {
+    return state.hikes.hikes;
+  });
+  useEffect(
+    () => {
+      getHikes();
+    },
+    [getHikes]
+  );
 
-  render() {
-    const { hikes, loading } = this.props.hikes;
-    let hikesContent;
+  const loading = useSelector(state => state.hikes.loading);
+  // const auth = useSelector(state => state.auth);
+  let hikesContent;
 
-    if (hikes === null || loading) {
-      hikesContent = <Spinner />;
+  if (hikes === null || loading) {
+    hikesContent = <Spinner />;
+  } else {
+    // Check if logged in user has any todos
+    if (isEmpty(hikes)) {
+      // User logged in with no todos
+      hikesContent = <p>No hikes recorded yet</p>;
     } else {
-      // Check if logged in user has any todos
-      if (isEmpty(hikes)) {
-        // User logged in with no todos
-        hikesContent = <p>No hikes recorded yet</p>;
-      } else {
-        hikesContent = (
-          <div className="hikes-content">
-            <Scroll>
-              {hikes.map((hike, i) => {
-                return (
-                  <div className="hikes-content" key={i}>
-                    <HikeItem hike={hike} />
-                  </div>
-                );
-              })}
-            </Scroll>
-          </div>
-        );
-      }
+      hikesContent = (
+        <Scroll>
+          {hikes.map((hike, i) => {
+            return (
+              <div key={i}>
+                <HikeItem hike={hike} />
+              </div>
+            );
+          })}
+        </Scroll>
+      );
     }
-    return (
-      <Container>
+  }
+  return (
+    <Container>
+      <Content>
         <Section>
-          <h3 className="display-5 text-muted mb-4">Your Hikes!</h3>
+          <Title>Your Hikes!</Title>
+
           {hikesContent}
         </Section>
-        <Section>
+        <FixedSection>
           <AddHike />
-        </Section>
-      </Container>
-    );
-  }
-}
-
-HikesHome.propTypes = {
-  getHikes: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  hikes: PropTypes.object.isRequired
+        </FixedSection>
+      </Content>
+    </Container>
+  );
 };
 
-const mapStateToProps = state => ({
-  hikes: state.hikes,
-  auth: state.auth
+const mapStateToProps = ({ hikes, auth }) => ({
+  hikes,
+  auth
 });
 
 export default connect(

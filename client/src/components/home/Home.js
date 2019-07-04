@@ -1,21 +1,24 @@
-import React, { Suspense, lazy, Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
-import Spinner from "../common/Spinner";
-import isEmpty from "../../validation/is-empty";
-import { Link, Route, Switch, Redirect } from "react-router-dom";
-import ProfileActions from "./ProfileActions";
-import Posts from "../posts/Posts";
 import Layout from "../layout/Layout";
-import NoMatchPage from "../common/NoMatchPage";
-// code split Todos/Hikes/locations/pictures
-const TodosHome = lazy(() => import("../todos/TodosHome"));
-const HikesHome = lazy(() => import("../hikes/HikesHome"));
-const LocationsHome = lazy(() => import("../locations/LocationsHome"));
-const PicturesHome = lazy(() => import("../pictures/PicturesHome"));
+import NavigationSide from "./Navigation/NavigationSide";
+import NavigationFooter from "./Navigation/NavigationFooter";
+import Content from "./Content/Content";
 
-class Home extends Component {
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  margin-top: 1em;
+  overflow: visible;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`;
+
+class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,50 +57,32 @@ class Home extends Component {
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
-    let homeContent;
-    if (profile === null || loading) {
-      homeContent = <Spinner />;
-    } else {
-      // Check if logged in user has profile
-      if (isEmpty(profile)) {
-        // User is logged in but no profile
-        homeContent = (
-          <div>
-            <p>You have not yet set up a profile, please add some info</p>
-            <Link to="/profile/create" className="btn btn-lg btn-info">
-              Create Profile
-            </Link>
-          </div>
-        );
-      } else {
-        homeContent = <ProfileActions onActionClick={this.onActionClick} />;
-      }
-    }
+    // let homeContent;
+    // if (profile === null || loading) {
+    //   homeContent = <Spinner />;
+    // } else {
+    //   // Check if logged in user has profile
+    //   if (isEmpty(profile)) {
+    //     // User is logged in but no profile
+    //     homeContent = (
+    //       <div>
+    //         <p>You have not yet set up a profile, please add some info</p>
+    //         <Link to="/profile/create" className="btn btn-lg btn-info">
+    //           Create Profile
+    //         </Link>
+    //       </div>
+    //     );
+    //   } else {
+    //     homeContent = <ProfileActions onActionClick={this.onActionClick} />;
+    //   }
+    // }
     return (
       <Layout>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-5 col-md-12">
-              <h1 className="text-center text-muted">
-                Welcome Home {user.name}
-              </h1>
-            </div>
-            <div className="col-lg-7 col-md-12 pd-0">{homeContent}</div>
-          </div>
-        </div>
-        <div className="action-content">
-          <div className="mb-4" />
-          <Switch>
-            <Redirect exact from="/home" to="/home/posts" />
-            <Route path="/home/posts" component={Posts} />
-            <Suspense fallback={<div>Loading...</div>}>
-              <Route path="/home/todos" component={TodosHome} />
-              <Route path="/home/hikes" component={HikesHome} />
-              <Route path="/home/locations" component={LocationsHome} />
-              <Route path="/home/photos" component={PicturesHome} />
-            </Suspense>
-          </Switch>
-        </div>
+        <Container>
+          <NavigationSide user={user} />
+          <Content profile={profile} loading={loading} />
+          <NavigationFooter user={user} />
+        </Container>
       </Layout>
     );
   }

@@ -8,11 +8,10 @@ const Container = styled.main`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 `;
 
 const Content = styled.section`
-  padding: 1em;
+  padding: 50px 1em 0 1em;
   flex: 1 auto;
 `;
 const Layout = ({ children }) => (
