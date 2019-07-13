@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -11,7 +11,8 @@ const Container = styled.div`
   padding: 1em;
   @media (max-width: 720px) {
     height: 180px;
-    width: 200px;
+    overflow-y: scroll;
+    width: 230px;
     margin-right: 1em;
   }
 `;
@@ -33,19 +34,17 @@ const Title = styled.h3`
 `;
 
 const Field = styled.p``;
-class HikeItem extends Component {
-  render() {
-    const { hike } = this.props;
-    return (
-      <Container>
-        <Title>{hike.name}</Title>
-        {/* <Location location={hike.location} */}
-        <Field>Rating: {hike.rating}</Field>
-        {hike.distance && <Field>Distance: {hike.distance}</Field>}
-        {hike.comments && <Field>Comments: {hike.comments}</Field>}
-      </Container>
-    );
-  }
-}
+
+const HikeItem = ({ hike }) => {
+  return (
+    <Container>
+      <Title>{hike.name}</Title>
+      <Field>Location: {hike.location}</Field>
+      <Field>Rating: {hike.rating}</Field>
+      {hike.distance && <Field>Distance: {hike.distance}</Field>}
+      {hike.comments && <Field>Comments: {hike.comments}</Field>}
+    </Container>
+  );
+};
 
 export default HikeItem;

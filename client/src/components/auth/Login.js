@@ -32,12 +32,12 @@ class Login extends Component {
     }
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.errors) {
-      return { errors: nextProps.errors };
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.errors) {
+  //     return { errors: nextProps.errors };
+  //   }
+  //   return null;
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.errors !== this.props.errors) {

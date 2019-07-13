@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import React, { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Spinner from "../common/Spinner";
 import isEmpty from "../../validation/is-empty";
 import { getHikes } from "../../actions/hikeActions";
@@ -61,15 +61,21 @@ const Scroll = styled.div`
   }
 `;
 
-const HikesHome = ({ getHikes }) => {
+const HikesHome = () => {
   const hikes = useSelector(state => {
     return state.hikes.hikes;
   });
+  const errors = useSelector(state => {
+    return state.errors;
+  });
+  const dispatch = useDispatch();
+  const getHikesFromStore = useCallback(() => dispatch(getHikes()), [dispatch]);
   useEffect(
     () => {
-      getHikes();
+      console.log("in useEffect");
+      getHikesFromStore();
     },
-    [getHikes]
+    [getHikesFromStore]
   );
 
   const loading = useSelector(state => state.hikes.loading);
@@ -106,19 +112,21 @@ const HikesHome = ({ getHikes }) => {
           {hikesContent}
         </Section>
         <FixedSection>
-          <AddHike />
+          <AddHike errors={errors} />
         </FixedSection>
       </Content>
     </Container>
   );
 };
 
-const mapStateToProps = ({ hikes, auth }) => ({
-  hikes,
-  auth
-});
+// const mapStateToProps = ({ hikes, auth }) => ({
+//   hikes,
+//   auth
+// });
+//
+// export default connect(
+//   mapStateToProps,
+//   { getHikes }
+// )(HikesHome);
 
-export default connect(
-  mapStateToProps,
-  { getHikes }
-)(HikesHome);
+export default HikesHome;
